@@ -1,0 +1,51 @@
+.edit-form-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.edit-form-bg .edit-form {
+  position: fixed;
+  margin: 3rem auto;
+  width: 90vw;
+  left: 50%;
+  background-color: white;
+  z-index: 1;
+  transform: translateX(-45vw);
+  padding: 4rem;
+  border: 1px solid #9e9e9e;
+  border-radius: 1rem;
+}
+@media (min-width: 768px) {
+  .edit-form-bg .edit-form {
+    width: 60vw;
+    transform: translateX(-30vw);
+  }
+}
+.edit-form-bg .edit-form .title {
+  font-size: 2.5rem;
+  color: #485fde;
+  font-family: Contrail One, sans-serif;
+}
+.edit-form-bg .edit-form .form-field {
+  margin: 2rem 0;
+}
+.edit-form-bg .edit-form .form-field > .textarea,
+.edit-form-bg .edit-form .form-field > .range-input {
+  font-size: 1.5rem;
+  width: 100%;
+  border: 1px solid #9e9e9e;
+}
+.edit-form-bg .edit-form .form-field > .form-label {
+  display: block;
+  margin: .5rem 0;
+  font-size: 1.5rem;
+  color: #333;
+}
+.edit-form-bg .edit-form .form-field .rating-checkbox {
+  margin-left: 1rem;
+}
+.edit-form-bg .edit-form .form-field > button:last-of-type {
+  margin-right: 1rem;
+}

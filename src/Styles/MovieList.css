@@ -1,0 +1,82 @@
+.movie-list .movie-list-item {
+  display: flex;
+}
+.movie-list .movie-list-item .poster {
+  display: inline-block;
+  margin-right: 2rem;
+  text-align: center;
+}
+.movie-list .movie-list-item .poster img {
+  height: 9rem;
+}
+.movie-list .movie-list-item .poster .year {
+  padding: .125rem;
+  font-size: 1.25rem;
+  line-height: 1;
+  background-color: #222;
+  color: white;
+}
+.movie-list .movie-list-item .metadata-wrapper {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+.movie-list .movie-list-item .metadata-wrapper a.title,
+.movie-list .movie-list-item .metadata-wrapper a.title:hover,
+.movie-list .movie-list-item .metadata-wrapper a.title:active {
+  font-size: 2.5rem;
+  color: #485fde;
+  font-family: 'Contrail One', sans-serif;
+  text-decoration: none;
+}
+.movie-list .movie-list-item .metadata-wrapper .notes {
+  font-size: 1.35rem;
+}
+.movie-list .movie-list-item .metadata-wrapper .streaming-options {
+  margin-top: auto;
+}
+.movie-list .movie-list-item .metadata-wrapper .streaming-options .streaming-link {
+  display: flex;
+}
+.movie-list .movie-list-item .metadata-wrapper .streaming-options .streaming-link:before {
+  content: '';
+  height: 30px;
+  width: 30px;
+  display: inline-block;
+  background-size: 30px auto;
+  background-repeat: no-repeat;
+}
+.movie-list .movie-list-item .metadata-wrapper .streaming-options .streaming-link.hulu_plus:before {
+  background-image: url(http://media.idownloadblog.com/wp-content/uploads/2014/10/hulu-plus-1.png);
+}
+.movie-list .movie-list-item .metadata-wrapper .streaming-options .streaming-link.amazon_prime:before {
+  background-image: url(http://is4.mzstatic.com/image/pf/us/r30/Purple1/v4/a8/40/79/a84079a1-eaa0-2319-3cf9-4fc63a26edf0/pr_source.png);
+}
+.movie-list .movie-list-item .metadata-wrapper .streaming-options .streaming-link.netflix:before {
+  background-image: url(https://is5-ssl.mzstatic.com/image/thumb/Purple122/v4/04/d9/61/04d96166-1388-5664-18eb-8882d8a96e77/source/256x256bb.jpg);
+}
+.movie-list .movie-list-item .metadata-wrapper .streaming-options .streaming-link.starz_amazon_prime:before {
+  background-image: url(https://logo.clearbit.com/starz.com);
+}
+.movie-list .movie-list-item .action-wrapper {
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+  min-width: 24vw;
+}
+.movie-list .movie-list-item .action-wrapper .watched {
+  padding: .25rem .75rem;
+  margin-left: auto;
+  max-width: 75px;
+  font-size: 1rem;
+  color: #fff;
+  text-align: center;
+  background-color: forestgreen;
+  border-radius: .25rem;
+}
+.movie-list .movie-list-item .action-wrapper .button-group {
+  margin-top: .5rem;
+}
+.movie-list .movie-list-item .action-wrapper .button-group > button:first-of-type {
+  margin-right: .5rem;
+}
