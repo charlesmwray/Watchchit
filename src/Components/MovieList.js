@@ -6,7 +6,7 @@ import data from '../Data/firebase';
 import '../Styles/MovieList.css';
 
 const removeMovie = (id, title) => {
-    if (confirm("Remove " + title + "?") == true) {
+    if (confirm("Remove " + title + "?") === true) {
          data.child(id).remove();
     }
 }
@@ -23,8 +23,8 @@ const MovieList = (props) => {
                     webStreamingItems: []
                 }
             }
-            componentWillMount() {
-                const base = 'http://api-public.guidebox.com/v2/movies/';
+            componentDidMount() {
+                const base = 'https://api-public.guidebox.com/v2/movies/';
                 const api = '?api_key=bbd37ad3b028476884a4610e508dd04ef6a00ac5'
                 const query = base + movie.id + api;
 
@@ -35,28 +35,30 @@ const MovieList = (props) => {
                 }
 
                 const getStreamingOptions = () => {
-                    $.ajax({
-                        url: query,
-                        type: "GET",
-                    }).done(function(details, p_sStatus) {
-                        var items = [];
-                        if (details.subscription_web_sources.length > 0) {
-                            items.push(details.subscription_web_sources);
+                    if ( movie.id ) {
+                        $.ajax({
+                           url: query,
+                           type: "GET",
+                        }).done(function(details, p_sStatus) {
+                           var items = [];
+                           if (details.subscription_web_sources.length > 0) {
+                               items.push(details.subscription_web_sources);
 
-                            movie.dbId && data.child(movie.dbId).child('subscription_web_sources').set(details.subscription_web_sources);
-                        }
-                        if (details.free_web_sources.length > 0) {
-                            items.push(details.free_web_sources);
-                            data.child(movie.dbId).child('free_web_sources').set(details.free_web_sources);
-                        }
-                        setStreamingItems(items)
+                               movie.dbId && data.child(movie.dbId).child('subscription_web_sources').set(details.subscription_web_sources);
+                           }
+                           if (details.free_web_sources.length > 0) {
+                               items.push(details.free_web_sources);
+                               data.child(movie.dbId).child('free_web_sources').set(details.free_web_sources);
+                           }
+                           setStreamingItems(items)
 
-                    }).fail(function(p_oXHR, p_sStatus) {
-                        console.log(p_oXHR, p_sStatus);
-                    });
+                        }).fail(function(p_oXHR, p_sStatus) {
+                           console.log(p_oXHR, p_sStatus);
+                        });
+                    }
                 }
                 const cacheTime = movie.cacheTime || 0;
-                if ( Math.round( new Date().getTime() / 1000) - cacheTime > 604800 ) {
+                if ( Math.round( new Date().getTime() / 1000) - cacheTime > 8.64e+7 ) {
                     getStreamingOptions();
                 } else {
                     var items = [];
@@ -70,10 +72,10 @@ const MovieList = (props) => {
                     return (
                         <a
                             key={i}
-                            className={ item[i].source && 'streaming-link ' + item[i].source }
-                            href={item[i].link}>
+                            className={ item[i] && 'streaming-link ' + item[i].source }
+                            href={ item[i] && item[i].link }>
                             <span className="util accessible-text">
-                                Watch on {item[i].display_name}
+                                Watch on { item[i] && item[i].display_name }
                             </span>
                         </a>
                     )
@@ -84,7 +86,7 @@ const MovieList = (props) => {
         return (
             <li className="list-group-item movie-list-item" key={i}>
                 <div className="poster">
-                    <img src={movie.poster} />
+                    <img src={movie.poster} role="presentation" />
                     <div className="year">{movie.year}</div>
                 </div>
                 <div className="metadata-wrapper">

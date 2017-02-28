@@ -2,9 +2,6 @@ import React from 'react';
 import '../Styles/MovieSearch.css';
 
 const MovieSearchResult = (props) => {
-    const setQueryString = (e) => {
-        props.setQueryString(e.target.value);
-    }
     const addMovie = (id) => {
         props.addMovie(id);
     }
@@ -12,7 +9,7 @@ const MovieSearchResult = (props) => {
         return (
             <li className="search-result list-group-item" key={i}>
                 <span className="poster">
-                    <img src={result.poster_120x171} />
+                    <img src={result.poster_120x171} role="presentation" />
                 </span>
                 <span className="title">
                     {result.title}

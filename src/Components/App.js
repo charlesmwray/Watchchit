@@ -69,7 +69,7 @@ class App extends Component {
         e.preventDefault();
 
         var api = '&api_key=bbd37ad3b028476884a4610e508dd04ef6a00ac5'
-        var base = 'http://api-public.guidebox.com/v2/';
+        var base = 'https://api-public.guidebox.com/v2/';
         var search = base + 'search?type=movie&field=title&query=' + e.target.searchInput.value;
         var query = search + api;
 
@@ -79,18 +79,18 @@ class App extends Component {
             });
         }
 
+        const setShowSearchResults = (state) => {
+            this.setState({
+                showSerchResult: state
+            })
+        }
+
         const setSearchResults = (result) => {
             this.setState({
                 searchResults: result,
             });
             setShowSearchResults(true);
             document.getElementById('add-movie-button').focus();
-        }
-
-        const setShowSearchResults = (state) => {
-            this.setState({
-                showSerchResult: state
-            })
         }
 
         setQueryState('Searching');
@@ -138,7 +138,7 @@ class App extends Component {
         }
         const saveData = this.state.searchResults[id];
 
-        const base = 'http://api-public.guidebox.com/v2/movies/';
+        const base = 'https://api-public.guidebox.com/v2/movies/';
         const api = '?api_key=bbd37ad3b028476884a4610e508dd04ef6a00ac5'
         const query = base + this.state.searchResults[id].id + api;
 
