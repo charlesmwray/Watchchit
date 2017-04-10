@@ -8,7 +8,7 @@
     flex-direction: row;
   }
 }
-.header .header-text {
+.header-text {
   flex-grow: 1;
   font-family: 'Contrail One', sans-serif;
   font-size: 7rem;
