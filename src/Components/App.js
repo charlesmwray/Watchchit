@@ -56,7 +56,27 @@ class App extends Component {
                 });
             }
 
-            setMovies(formattedMovies.reverse());
+            var sortByWatched = function(a, b) {
+                if ( a.watched && b.watched ) return 0;
+                if ( a.watched && !b.watched ) return 1;
+                if ( !a.watched && b.watched ) return -1;
+            }
+
+            var sortByStreamingOptions = function(a, b) {
+                if ( a.watched ) return 0;
+
+                var itemA = a.subscription_web_sources ? a.subscription_web_sources.length : 0;
+                var itemB = b.subscription_web_sources ? b.subscription_web_sources.length : 0;
+
+                if( itemA < itemB ) return 1;
+                if( itemA > itemB ) return -1;
+
+                return 0;
+            }
+
+            setMovies( formattedMovies.sort( sortByWatched ).sort( sortByStreamingOptions) );
+
+            console.log(formattedMovies);
 
         }, function (errorObject) {
             // TODO: add error state to UI
