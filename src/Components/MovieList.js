@@ -27,9 +27,10 @@ const MovieList = (props) => {
                 const base = 'https://api-public.guidebox.com/v2/movies/';
                 const api = '?api_key=bbd37ad3b028476884a4610e508dd04ef6a00ac5'
                 const query = base + movie.id + api;
+                const _this = this;
 
                 const setStreamingItems = (streamingObj) => {
-                    this.setState({
+                    _this.setState({
                         webStreamingItems: streamingObj
                     })
                 }
@@ -42,29 +43,38 @@ const MovieList = (props) => {
                         }).done(function(details, p_sStatus) {
                            var items = [];
                            if (details.subscription_web_sources.length > 0) {
-                               items.push(details.subscription_web_sources);
-
-                               movie.dbId && data.child(movie.dbId).child('subscription_web_sources').set(details.subscription_web_sources);
+                               for (var i = 0; i < details.subscription_web_sources.length; i++) {
+                                   items.push(details.subscription_web_sources[i]);
+                               }
                            }
                            if (details.free_web_sources.length > 0) {
-                               items.push(details.free_web_sources);
-                               data.child(movie.dbId).child('free_web_sources').set(details.free_web_sources);
+                               for (var i = 0; i < details.free_web_sources.length; i++) {
+                                   items.push(details.free_web_sources[i]);
+                               }
                            }
-                           setStreamingItems(items)
+
+                           if ( items.length >= 1 ) {
+                               data.child(movie.dbId).child('streaming_sources').set(items);
+                               setStreamingItems(items);
+                           }
 
                         }).fail(function(p_oXHR, p_sStatus) {
                            console.log(p_oXHR, p_sStatus);
                         });
                     }
                 }
+
                 const cacheTime = movie.cacheTime || 0;
-                if ( Math.round( new Date().getTime() / 1000) - cacheTime > 8.64e+7 ) {
+                const now = Math.round( new Date().getTime() / 1000 ); // Current time in seconds
+                const intervalCheck = 86400; // One day
+
+                console.log(cacheTime, now, intervalCheck, now - cacheTime);
+
+                if ( now - cacheTime > intervalCheck ) {
+                    movie.dbId && data.child(movie.dbId).child('cacheTime').set(now);
                     getStreamingOptions();
                 } else {
-                    var items = [];
-                    movie.subscription_web_sources && items.push(movie.subscription_web_sources);
-
-                    setStreamingItems(items)
+                    movie.streaming_sources && setStreamingItems(movie.streaming_sources);
                 }
             }
             render() {
@@ -72,15 +82,17 @@ const MovieList = (props) => {
                     return (
                         <a
                             key={i}
-                            className={ item[i] && 'streaming-link ' + item[i].source }
-                            href={ item[i] && item[i].link }>
+                            className={ item && 'streaming-link ' + item.source }
+                            href={ item && item.link }
+                            data-source-name={item.display_name}
+                        >
                             <span className="util accessible-text">
-                                Watch on { item[i] && item[i].display_name }
+                                Watch on { item && item.display_name }
                             </span>
                         </a>
                     )
                 });
-                return <div>{WebStreamingItems}</div>;
+                return <div className="streaming-options">{WebStreamingItems}</div>;
             }
         }
         return (
@@ -94,9 +106,7 @@ const MovieList = (props) => {
                         {movie.title}
                     </a>
                     <div className="notes">{movie.notes}</div>
-                    <div className="streaming-options">
-                        <StreamingItem />
-                    </div>
+                    <StreamingItem />
                 </div>
                 <div className="action-wrapper">
                     Rating: {movie.myRating} { movie.watched && <span className="watched">Watched</span> }

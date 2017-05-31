@@ -15,7 +15,7 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            movies: [{title:'Loading'}],
+            movies: [],
             queryState: '',
             showSerchResult: false,
             searchResults: [],
@@ -50,33 +50,24 @@ class App extends Component {
                     notes:     snapshot.val()[keys[i]].notes || '',
                     year:      snapshot.val()[keys[i]].release_year,
                     cacheTime: snapshot.val()[keys[i]].cacheTime,
-                    subscription_web_sources: snapshot.val()[keys[i]].subscription_web_sources,
-                    free_web_sources: snapshot.val()[keys[i]].free_web_sources,
+                    streaming_sources: snapshot.val()[keys[i]].streaming_sources,
                     dbId:      keys[i]
                 });
             }
 
-            var sortByWatched = function(a, b) {
-                if ( a.watched && b.watched ) return 0;
-                if ( a.watched && !b.watched ) return 1;
-                if ( !a.watched && b.watched ) return -1;
-            }
-
             var sortByStreamingOptions = function(a, b) {
-                if ( a.watched ) return 0;
 
-                var itemA = a.subscription_web_sources ? a.subscription_web_sources.length : 0;
-                var itemB = b.subscription_web_sources ? b.subscription_web_sources.length : 0;
+                var itemA = a.streaming_sources ? a.streaming_sources.length : 0;
+                var itemB = b.streaming_sources ? b.streaming_sources.length : 0;
 
                 if( itemA < itemB ) return 1;
                 if( itemA > itemB ) return -1;
+                if( itemA === itemB ) return 0;
 
                 return 0;
             }
 
-            setMovies( formattedMovies.sort( sortByWatched ).sort( sortByStreamingOptions) );
-
-            console.log(formattedMovies);
+            setMovies( formattedMovies.sort( sortByStreamingOptions ) );
 
         }, function (errorObject) {
             // TODO: add error state to UI

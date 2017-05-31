@@ -32,32 +32,47 @@
 .movie-list .movie-list-item .metadata-wrapper .notes {
   font-size: 1.35rem;
 }
+
 .movie-list .movie-list-item .metadata-wrapper .streaming-options {
   margin-top: auto;
-}
-.movie-list .movie-list-item .metadata-wrapper .streaming-options .streaming-link {
   display: flex;
+  align-items: baseline;
 }
 .movie-list .movie-list-item .metadata-wrapper .streaming-options .streaming-link:before {
+  content: attr(data-source-name);
+  display: inline-block;
+  margin: 4px;
+  padding: 2px 6px;
+  color: white;
+  font-size: 10px;
+  border-radius: 2px;
+  background-color: #485fde;
+}
+/*.movie-list .movie-list-item .metadata-wrapper .streaming-options .streaming-link.hulu_plus:before {
   content: '';
   height: 30px;
   width: 30px;
-  display: inline-block;
-  background-size: 30px auto;
-  background-repeat: no-repeat;
-}
-.movie-list .movie-list-item .metadata-wrapper .streaming-options .streaming-link.hulu_plus:before {
   background-image: url(http://media.idownloadblog.com/wp-content/uploads/2014/10/hulu-plus-1.png);
 }
 .movie-list .movie-list-item .metadata-wrapper .streaming-options .streaming-link.amazon_prime:before {
+  content: '';
+  height: 30px;
+  width: 30px;
   background-image: url(http://is4.mzstatic.com/image/pf/us/r30/Purple1/v4/a8/40/79/a84079a1-eaa0-2319-3cf9-4fc63a26edf0/pr_source.png);
 }
 .movie-list .movie-list-item .metadata-wrapper .streaming-options .streaming-link.netflix:before {
+  content: '';
+  height: 30px;
+  width: 30px;
   background-image: url(https://is5-ssl.mzstatic.com/image/thumb/Purple122/v4/04/d9/61/04d96166-1388-5664-18eb-8882d8a96e77/source/256x256bb.jpg);
 }
 .movie-list .movie-list-item .metadata-wrapper .streaming-options .streaming-link.starz_amazon_prime:before {
+  content: '';
+  height: 30px;
+  width: 30px;
   background-image: url(https://logo.clearbit.com/starz.com);
-}
+}*/
+
 .movie-list .movie-list-item .action-wrapper {
   display: flex;
   flex-direction: column;
