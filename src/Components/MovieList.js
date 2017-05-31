@@ -97,20 +97,21 @@ const MovieList = (props) => {
             <li className="list-group-item movie-list-item" key={i}>
                 <div className="poster">
                     <img src={movie.poster} role="presentation" />
-                    <div className="year">{movie.year}</div>
+                    { movie.watched && <span className="watched">Watched</span> }
                 </div>
-                <div className="metadata-wrapper">
-                    <a href={movie.link} className="title" target="_blank">
-                        {movie.title}
-                    </a>
+                <div className="details">
+                    <div className="header">
+                        <a href={movie.link} className="title" target="_blank">
+                            {movie.title}
+                        </a>
+                        <div className="year">{movie.year}</div>
+                    </div>
                     <div className="notes">{movie.notes}</div>
                     <StreamingItem />
-                </div>
-                <div className="action-wrapper">
-                    Rating: {movie.myRating} { movie.watched && <span className="watched">Watched</span> }
-                    <div className="button-group">
-                        <button className="btn" onClick={() => { toggleEditForm(movie) }}>Edit</button>
-                        <button className="remove button btn" onClick={() => { removeMovie(movie.dbId, movie.title) }}>X</button>
+                    <div>Rating: {movie.myRating}</div>
+                    <div className="action-wrapper">
+                        <span className="action glyphicon glyphicon-edit" onClick={() => { toggleEditForm(movie) }}></span>
+                        <span className="action glyphicon glyphicon-trash" onClick={() => { removeMovie(movie.dbId, movie.title) }}></span>
                     </div>
                 </div>
             </li>
