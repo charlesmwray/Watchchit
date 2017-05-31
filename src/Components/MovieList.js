@@ -68,8 +68,6 @@ const MovieList = (props) => {
                 const now = Math.round( new Date().getTime() / 1000 ); // Current time in seconds
                 const intervalCheck = 86400; // One day
 
-                console.log(cacheTime, now, intervalCheck, now - cacheTime);
-
                 if ( now - cacheTime > intervalCheck ) {
                     movie.dbId && data.child(movie.dbId).child('cacheTime').set(now);
                     getStreamingOptions();
