@@ -96,7 +96,9 @@ const MovieList = (props) => {
         return (
             <li className="list-group-item movie-list-item" key={i}>
                 <div className="poster">
-                    <img src={movie.poster} role="presentation" />
+                    <img className="small_poster" src={movie.small_poster} role="presentation" />
+                    <img className="medium_poster" src={movie.medium_poster} role="presentation" />
+                    <img className="large_poster" src={movie.large_poster} role="presentation" />
                     { movie.watched && <span className="watched">Watched</span> }
                 </div>
                 <div className="details">

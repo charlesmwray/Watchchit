@@ -17,10 +17,9 @@
 .movie-list .movie-list-item .poster img {
     width: 100%;
 }
-@media (min-width: 768px) {
-    .movie-list .movie-list-item {
-        width: 25%;
-    }
+.movie-list .movie-list-item .poster img.medium_poster,
+.movie-list .movie-list-item .poster img.large_poster {
+    display: none;
 }
 
 .movie-list .details {
@@ -104,4 +103,26 @@
 }
 .movie-list .action-wrapper .action {
     margin: .25rem 0 .25rem .25rem;
+}
+
+
+@media (min-width: 768px) {
+    .movie-list .movie-list-item {
+        width: 25%;
+    }
+    .movie-list .movie-list-item .poster img.small_poster {
+        display: none;
+    }
+    .movie-list .movie-list-item .poster img.medium_poster {
+        display: block;
+    }
+}
+
+@media (min-width: 1092px) {
+    .movie-list .movie-list-item .poster img.medium_poster {
+        display: none;
+    }
+    .movie-list .movie-list-item .poster img.large_poster {
+        display: block;
+    }
 }
