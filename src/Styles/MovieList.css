@@ -3,16 +3,19 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: flex-end;
+    margin-left: -1rem;
 }
 
 .movie-list .movie-list-item {
     padding: 0;
     border: 0;
-    margin: 1rem 0 1rem 1rem;
     background-color: transparent;
 }
 .movie-list .movie-list-item {
     width: 50%;
+}
+.movie-list .movie-list-item .poster {
+    margin: -.5rem -.5rem 1rem -.5rem;
 }
 .movie-list .movie-list-item .poster img {
     width: 100%;
@@ -23,17 +26,15 @@
 }
 
 .movie-list .details {
+    margin: 1rem 0 1rem 1rem;
     padding: .5rem;
     background-color: white;
 }
 
-.movie-list .movie-list-item > .header {
-    display: flex;
-    flex-direction: row;
-}
-.movie-list .movie-list-item .header a.title,
-.movie-list .movie-list-item .header a.title:hover,
-.movie-list .movie-list-item .header a.title:active {
+.movie-list .movie-list-item a.title,
+.movie-list .movie-list-item a.title:hover,
+.movie-list .movie-list-item a.title:active {
+    margin-top: .5rem;
     flex-grow: 1;
     font-size: 2.5rem;
     color: #485fde;
@@ -41,9 +42,7 @@
     text-decoration: none;
 }
 
-.movie-list .movie-list-item .header .year {
-    align-self: flex-start;
-    padding: .5rem .25rem;
+.movie-list .movie-list-item .year {
     font-size: 1.25rem;
     line-height: 1;
     color: #222;
@@ -93,7 +92,7 @@
     left: 0;
     padding: .25rem .75rem;
     margin-left: auto;
-    font-size: 1rem;
+    font-size: 1.25rem;
     color: #fff;
     text-align: center;
     background-color: forestgreen;
@@ -108,7 +107,7 @@
 
 @media (min-width: 768px) {
     .movie-list .movie-list-item {
-        width: 25%;
+        width: 33%;
     }
     .movie-list .movie-list-item .poster img.small_poster {
         display: none;
@@ -119,10 +118,31 @@
 }
 
 @media (min-width: 1092px) {
+    .movie-list .movie-list-item {
+        width: 20%;
+    }
     .movie-list .movie-list-item .poster img.medium_poster {
         display: none;
     }
     .movie-list .movie-list-item .poster img.large_poster {
         display: block;
     }
+}
+
+/* Retina-specific stuff */
+@media
+only screen and (-webkit-min-device-pixel-ratio: 2),
+only screen and (   min--moz-device-pixel-ratio: 2),
+only screen and (     -o-min-device-pixel-ratio: 2/1),
+only screen and (        min-device-pixel-ratio: 2),
+only screen and (                min-resolution: 192dpi),
+only screen and (                min-resolution: 2dppx) {
+    .movie-list .movie-list-item .poster img.small_poster,
+    .movie-list .movie-list-item .poster img.large_poster {
+        display: none;
+    }
+    .movie-list .movie-list-item .poster img.medium_poster {
+        display: block;
+    }
+
 }

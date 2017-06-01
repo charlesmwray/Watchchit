@@ -95,19 +95,18 @@ const MovieList = (props) => {
         }
         return (
             <li className="list-group-item movie-list-item" key={i}>
-                <div className="poster">
-                    <img className="small_poster" src={movie.small_poster} role="presentation" />
-                    <img className="medium_poster" src={movie.medium_poster} role="presentation" />
-                    <img className="large_poster" src={movie.large_poster} role="presentation" />
-                    { movie.watched && <span className="watched">Watched</span> }
-                </div>
                 <div className="details">
-                    <div className="header">
-                        <a href={movie.link} className="title" target="_blank">
-                            {movie.title}
-                        </a>
-                        <div className="year">{movie.year}</div>
+                    <div className="poster">
+                        <img className="small_poster" src={movie.small_poster} role="presentation" />
+                        <img className="medium_poster" src={movie.medium_poster} role="presentation" />
+                        <img className="large_poster" src={movie.large_poster} role="presentation" />
+                        { movie.watched && <span className="watched">Watched</span> }
                     </div>
+
+                    <a href={movie.link} className="title" target="_blank">
+                        {movie.title}
+                    </a>
+                    <div className="year">{movie.year}</div>
                     <div className="notes">{movie.notes}</div>
                     <StreamingItem />
                     <div>Rating: {movie.myRating}</div>
