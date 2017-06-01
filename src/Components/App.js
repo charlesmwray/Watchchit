@@ -214,10 +214,13 @@ class App extends Component {
                                 resetSearch={this.resetSearch.bind(this)}
                                 />
                         }
+                        { this.state.movies.length === 0 &&
+                        <h3>Loading</h3> }
+                        { this.state.movies.length > 0 &&
                         <MovieList
                             movies={this.state.movies}
                             toggleEditForm={this.toggleEditForm.bind(this)}
-                        />
+                        /> }
                     </div>
                 </div>
             </div>
