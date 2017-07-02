@@ -2,8 +2,7 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: flex-end;
-    margin-left: -1rem;
+    margin-right: -1rem;
 }
 
 .movie-list .movie-list-item {

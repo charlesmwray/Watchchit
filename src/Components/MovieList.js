@@ -48,8 +48,8 @@ const MovieList = (props) => {
                                }
                            }
                            if (details.free_web_sources.length > 0) {
-                               for (var i = 0; i < details.free_web_sources.length; i++) {
-                                   items.push(details.free_web_sources[i]);
+                               for (var j = 0; j < details.free_web_sources.length; j++) {
+                                   items.push(details.free_web_sources[j]);
                                }
                            }
 
@@ -94,28 +94,28 @@ const MovieList = (props) => {
             }
         }
         return (
-            <li className="list-group-item movie-list-item" key={i}>
-                <div className="details">
-                    <div className="poster">
-                        <img className="small_poster" src={movie.small_poster} role="presentation" />
-                        <img className="medium_poster" src={movie.medium_poster} role="presentation" />
-                        <img className="large_poster" src={movie.large_poster} role="presentation" />
-                        { movie.watched && <span className="watched">Watched</span> }
-                    </div>
+                <li className={ movie.display ? 'list-group-item movie-list-item' : 'list-group-item movie-list-item hidden' } key={i}>
+                    <div className="details">
+                        <div className="poster">
+                            <img className="small_poster" src={movie.small_poster} role="presentation" />
+                            <img className="medium_poster" src={movie.medium_poster} role="presentation" />
+                            <img className="large_poster" src={movie.large_poster} role="presentation" />
+                            { movie.watched && <span className="watched">Watched</span> }
+                        </div>
 
-                    <a href={movie.link} className="title" target="_blank">
-                        {movie.title}
-                    </a>
-                    <div className="year">{movie.year}</div>
-                    <div className="notes">{movie.notes}</div>
-                    <StreamingItem />
-                    <div>Rating: {movie.myRating}</div>
-                    <div className="action-wrapper">
-                        <span className="action glyphicon glyphicon-edit" onClick={() => { toggleEditForm(movie) }}></span>
-                        <span className="action glyphicon glyphicon-trash" onClick={() => { removeMovie(movie.dbId, movie.title) }}></span>
+                        <a href={movie.link} className="title" target="_blank">
+                            {movie.title}
+                        </a>
+                        <div className="year">{movie.year}</div>
+                        <div className="notes">{movie.notes}</div>
+                        <StreamingItem />
+                        <div>Rating: {movie.myRating}</div>
+                        <div className="action-wrapper">
+                            <span className="action glyphicon glyphicon-edit" onClick={() => { toggleEditForm(movie) }}></span>
+                            <span className="action glyphicon glyphicon-trash" onClick={() => { removeMovie(movie.dbId, movie.title) }}></span>
+                        </div>
                     </div>
-                </div>
-            </li>
+                </li>
         )
     });
     return (

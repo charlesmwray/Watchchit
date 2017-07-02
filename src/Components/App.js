@@ -5,6 +5,7 @@ import MovieList from './MovieList.js';
 import MovieSearch from './MovieSearch.js';
 import MovieSearchResult from './MovieSearchResult';
 import MovieEdit from './MovieEdit';
+import MovieFilter from './MovieFilter';
 
 import data from '../Data/firebase';
 
@@ -16,6 +17,7 @@ class App extends Component {
         super(props);
         this.state = {
             movies: [],
+            filteredMovies: null,
             queryState: '',
             showSerchResult: false,
             searchResults: [],
@@ -53,6 +55,7 @@ class App extends Component {
                     year:          snapshot.val()[keys[i]].release_year,
                     cacheTime:     snapshot.val()[keys[i]].cacheTime,
                     dbId:          keys[i],
+                    display:       true,
                     streaming_sources: snapshot.val()[keys[i]].streaming_sources
                 });
             }
@@ -179,6 +182,25 @@ class App extends Component {
             console.log(p_oXHR, p_sStatus);
         });
     }
+    filterMovies(filter) {
+        var filteredMovies = this.state.movies.filter(function ( obj ) {
+            for (var i = 0; i < filter.length; i++) {
+                if ( obj.streaming_sources && JSON.stringify(obj.streaming_sources).indexOf(filter[i]) !== -1 ) {
+                    return true;
+                }
+            }
+        });
+
+        this.setState({ filteredMovies: filteredMovies });
+    }
+    filterWatched(watched) {
+        var movies = this.state.movies;
+
+        for (var i = 0; i < this.state.movies.length; i++) {
+            movies[i].watched === watched ? movies[i].display = true : movies[i].display = false;
+        }
+        this.setState({ movies: movies });
+    }
     toggleEditForm(movie) {
         this.setState({
             editForm: {
@@ -201,10 +223,14 @@ class App extends Component {
                     <div className="col-xs-12 col-sm-9">
                         <header className="header">
                             <h1 className="header-text visible-xs-*">Movie List</h1>
+                            <MovieFilter
+                                filterWatched={this.filterWatched.bind(this)}
+                                filterMovies={this.filterMovies.bind(this)}
+                            />
                             <MovieSearch
                                 status={this.state.queryState}
                                 searchForMovie={this.searchForMovie.bind(this)}
-                                />
+                            />
                         </header>
                         {
                             this.state.showSerchResult &&
@@ -212,13 +238,13 @@ class App extends Component {
                                 searchResults={this.state.searchResults}
                                 addMovie={this.addMovie.bind(this)}
                                 resetSearch={this.resetSearch.bind(this)}
-                                />
+                            />
                         }
                         { this.state.movies.length === 0 &&
                         <h3>Loading</h3> }
                         { this.state.movies.length > 0 &&
                         <MovieList
-                            movies={this.state.movies}
+                            movies={this.state.filteredMovies || this.state.movies}
                             toggleEditForm={this.toggleEditForm.bind(this)}
                         /> }
                     </div>

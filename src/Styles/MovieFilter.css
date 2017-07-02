@@ -1,0 +1,29 @@
+.filter-container {
+    display: flex;
+    align-items: center;
+    margin-right: 2rem;
+}
+.filter-container form {
+    flex-grow: 1;
+    display: flex;
+}
+
+.filter-item {
+    margin: 0 6px;
+}
+.filter-item input {
+    display: none;
+}
+.filter-item label {
+    padding: 2px 10px;
+    color: grey;
+    border: 1px solid grey;
+    border-radius: 2px;
+
+    cursor: pointer;
+}
+.filter-item input:checked + label {
+    background-color: white;
+    color: black;
+    border-color: white;
+}

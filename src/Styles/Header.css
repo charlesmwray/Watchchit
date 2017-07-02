@@ -32,5 +32,6 @@
   justify-content: flex-end;
 }
 .header .search-container .search-input-container .search-input {
-  margin-right: 1rem;
+    border: none;
+    margin-top: 6px;
 }

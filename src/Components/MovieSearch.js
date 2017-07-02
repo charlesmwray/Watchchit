@@ -15,7 +15,6 @@ const MovieSearch = (props) => {
                     id="searchInput"
                     autoComplete="off"
                 />
-                <button className="btn" type="submit">Search</button>
             </form>
             <h5>{props.status}</h5>
         </div>
