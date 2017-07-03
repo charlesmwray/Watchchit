@@ -7,11 +7,10 @@
 
 .movie-list .movie-list-item {
     padding: 0;
+    width: 50%;
     border: 0;
     background-color: transparent;
 }
-.movie-list .movie-list-item {
-    width: 50%;
 }
 .movie-list .movie-list-item .poster {
     margin: -.5rem -.5rem 1rem -.5rem;

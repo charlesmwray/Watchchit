@@ -55,7 +55,7 @@ class App extends Component {
                     year:          snapshot.val()[keys[i]].release_year,
                     cacheTime:     snapshot.val()[keys[i]].cacheTime,
                     dbId:          keys[i],
-                    display:       true,
+                    display:       snapshot.val()[keys[i]].watched ? false : true,
                     streaming_sources: snapshot.val()[keys[i]].streaming_sources
                 });
             }
@@ -155,8 +155,9 @@ class App extends Component {
         const saveData = this.state.searchResults[id];
 
         const base = 'https://api-public.guidebox.com/v2/movies/';
-        const api = '?api_key=bbd37ad3b028476884a4610e508dd04ef6a00ac5'
-        const query = base + this.state.searchResults[id].id + api;
+        const api = '?api_key=bbd37ad3b028476884a4610e508dd04ef6a00ac5';
+        const movieId = this.state.searchResults[id].id;
+        const query = base + movieId + api;
 
         $.ajax({
             url: query,
@@ -173,6 +174,9 @@ class App extends Component {
                 if (!error) {
                     setQueryState('Saved');
                     resetSearch();
+
+                    var newMovie = document.getElementById(movieId);
+                    window.scroll(0, newMovie.offsetTop );
                 } else {
                     setQueryState('Save error.');
                 }
@@ -183,19 +187,22 @@ class App extends Component {
         });
     }
     filterMovies(filter) {
-        var filteredMovies = this.state.movies.filter(function ( obj ) {
-            for (var i = 0; i < filter.length; i++) {
-                if ( obj.streaming_sources && JSON.stringify(obj.streaming_sources).indexOf(filter[i]) !== -1 ) {
-                    return true;
+        if ( filter.length > 0 ) {
+            var filteredMovies = this.state.movies.filter(function ( obj ) {
+                for (var i = 0; i < filter.length; i++) {
+                    if ( obj.streaming_sources && JSON.stringify(obj.streaming_sources).indexOf(filter[i]) !== -1 ) {
+                        return true;
+                    }
                 }
-            }
-        });
+            });
+        } else {
+            filteredMovies = null;
+        }
 
         this.setState({ filteredMovies: filteredMovies });
     }
     filterWatched(watched) {
         var movies = this.state.movies;
-
         for (var i = 0; i < this.state.movies.length; i++) {
             movies[i].watched === watched ? movies[i].display = true : movies[i].display = false;
         }
