@@ -1,4 +1,5 @@
-/*eslint no-undef: 0*/
+import * as firebase from 'firebase'
+
 var config = {
     apiKey: "AIzaSyBmdypyXBSh6_Pble2-3o8alfVogwi3yIs",
     authDomain: "sweltering-fire-733.firebaseapp.com",
