@@ -41,22 +41,38 @@ const MovieList = (props) => {
                            url: query,
                            type: "GET",
                         }).done(function(details, p_sStatus) {
-                           var items = [];
-                           if (details.subscription_web_sources.length > 0) {
-                               for (var i = 0; i < details.subscription_web_sources.length; i++) {
+                            var items = [];
+                            if (details.subscription_web_sources.length > 0) {
+                                for (var i = 0; i < details.subscription_web_sources.length; i++) {
                                    items.push(details.subscription_web_sources[i]);
-                               }
-                           }
-                           if (details.free_web_sources.length > 0) {
-                               for (var j = 0; j < details.free_web_sources.length; j++) {
+                                }
+                            }
+                            if (details.free_web_sources.length > 0) {
+                                for (var j = 0; j < details.free_web_sources.length; j++) {
                                    items.push(details.free_web_sources[j]);
-                               }
-                           }
+                                }
+                            }
 
-                           if ( items.length >= 1 ) {
-                               data.child(movie.dbId).child('streaming_sources').set(items);
-                               setStreamingItems(items);
-                           }
+                            if ( items.length >= 1 ) {
+                                data.child(movie.dbId).child('streaming_sources').set(items);
+                                setStreamingItems(items);
+                            }
+
+                            var a = movie.small_poster;
+                            var b = movie.medium_poster;
+                            var c = movie.large_poster;
+
+                            if ( movie.small_poster.indexOf('http:') !== -1 ) {
+                                data.child(movie.dbId).child('poster_120x171').set( 'https' + a.slice(4, a.length) );
+                            }
+
+                            if ( movie.medium_poster.indexOf('http:') !== -1 ) {
+                                data.child(movie.dbId).child('poster_240x342').set( 'https' + b.slice(4, b.length) );
+                            }
+
+                            if ( movie.large_poster.indexOf('http:') !== -1 ) {
+                                data.child(movie.dbId).child('poster_400x570').set( 'https' + c.slice(4, c.length) );
+                            }
 
                         }).fail(function(p_oXHR, p_sStatus) {
                            console.log(p_oXHR, p_sStatus);
